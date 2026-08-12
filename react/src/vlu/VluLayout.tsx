@@ -4,6 +4,7 @@ import { ROUTES } from '../constants';
 import { useThemeMode } from '../themeMode';
 import { useTkbStore } from '../zus';
 import './brand.css';
+import './sidebar-menu.css';
 
 export type VluNavItem = {
   key: string;

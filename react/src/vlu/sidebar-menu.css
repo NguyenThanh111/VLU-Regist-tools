@@ -1,0 +1,41 @@
+/* Sidebar navigation must reset native button styles before applying theme colors. */
+.vlu-nav-link {
+  width: 100%;
+  border: 1px solid transparent;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  text-align: left;
+  font: inherit;
+}
+
+[data-theme='dark'] .vlu-nav-link {
+  color: #c9d6e5;
+}
+
+[data-theme='dark'] .vlu-nav-link:hover,
+[data-theme='dark'] .vlu-nav-link:focus-visible {
+  color: #ffffff;
+  background: rgba(143, 193, 255, 0.1);
+  border-color: rgba(143, 193, 255, 0.24);
+  outline: none;
+}
+
+[data-theme='dark'] .vlu-nav-link.active {
+  color: #9ccaff;
+  background: rgba(61, 124, 201, 0.2);
+  border-color: rgba(143, 193, 255, 0.4);
+  box-shadow: inset 3px 0 0 #8fc1ff;
+}
+
+[data-theme='dark'] .vlu-nav-section {
+  color: #91a8c4;
+}
+
+[data-theme='dark'] .vlu-sidebar-brand-text .brand-name {
+  color: #f1f5f9;
+}
+
+[data-theme='dark'] .vlu-sidebar-footer .text-light {
+  color: #c9d6e5 !important;
+}
