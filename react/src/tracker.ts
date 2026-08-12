@@ -143,7 +143,9 @@ export const buildTracker = () => {
   // - multiple tabs (multiple sessions) opened simultaneously
   // - events from previous sessions (closed unexpectedly), but not yet dumped to firestore
   const dumpToFirestore = async () => {
-    if (!db) return;
+    // Imported bindings are not narrowed across async callbacks; retain a local reference.
+    const firestore = db;
+    if (!firestore) return;
     if (isDumpingToFirestore) return;
     isDumpingToFirestore = true;
     const cachedSessions = getCachedSessionsInLocalStorage();
@@ -151,7 +153,7 @@ export const buildTracker = () => {
     const promises = Object.entries(cachedSessions).map(async ([sessionId, sessionRecord]) => {
       if (sessionId === currentSessionId && !hasMoreMeaningfulEvents(sessionRecord)) return;
       const firestoreSessionId = isProd ? sessionId : `__DEV__${sessionId}`;
-      const newOrExistingDoc = doc(db, 'trackingEvents', firestoreSessionId);
+      const newOrExistingDoc = doc(firestore, 'trackingEvents', firestoreSessionId);
       return setDoc(newOrExistingDoc, getFirebaseSessionRecord(sessionRecord))
         .then(() => {
           if (sessionId === currentSessionId) {
