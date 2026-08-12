@@ -37,7 +37,8 @@ function VluLayout({ children }: VluLayoutProps) {
     const tongLop = dataTkb?.data?.length ?? 0;
     return [
       { key: 'section-main', label: 'Tổng quan', section: true },
-      { key: 'dashboard', label: 'Dashboard', icon: 'bi-grid-1x2-fill', path: '/' },
+      { key: 'home', label: 'Trang chủ', icon: 'bi-house-fill', path: ROUTES._0TrangChu.path },
+      { key: 'dashboard', label: 'Dashboard', icon: 'bi-grid-1x2-fill', path: ROUTES._Dashboard.path },
       { key: 'section-flow', label: 'Quy trình', section: true },
       {
         key: 'step1',

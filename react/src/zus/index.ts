@@ -3,7 +3,7 @@ import { partition } from 'lodash';
 import { memoize } from 'proxy-memoize';
 import { Mutate, StoreApi, create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import { tracker } from '..';
+import { tracker } from '../telemetry';
 import { ClassModel, ClassModelOriginal } from '../types';
 import { calcTongSoTC, isSameAgGridRowId } from '../utils';
 

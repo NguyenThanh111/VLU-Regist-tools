@@ -1,9 +1,14 @@
+import { LicenseManager } from 'ag-grid-enterprise';
 import { AgGridReact } from 'ag-grid-react';
 import { ClassModel } from 'types';
 import { tracker } from '../../..';
 import { useDrawerStore } from '../../../zus';
 import './styles.css';
+import 'ag-grid-enterprise/styles/ag-grid.css';
+import 'ag-grid-enterprise/styles/ag-theme-alpine.css';
 import { useGridOptions } from './utils';
+
+LicenseManager.setLicenseKey('I_<3_SCHOOL_NDEwMjMzMzIwMDAwMA==afc05c982fa05a2578eb9cab60c42d78');
 
 function AgGrid() {
   const {

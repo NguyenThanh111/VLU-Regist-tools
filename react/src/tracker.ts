@@ -3,7 +3,7 @@ import { Timestamp, doc, setDoc } from 'firebase/firestore';
 import ReactGA from 'react-ga4';
 import { doWhenIdle, getBrowserName, getOsName, getVisitorFingerprint } from './tracking.utils';
 import { log } from './utils';
-import { analytics, db, isProd } from '.';
+import { analytics, db, isProd } from './runtime';
 
 type AllowedPropertyValues = string | number | boolean | null | undefined;
 type EventGroup = 'tkb_table' | 'so_tc' | 'drawer' | 'page1' | 'page2' | 'page3' | 'page';

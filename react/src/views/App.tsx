@@ -14,6 +14,7 @@ import '../vlu/brand.css';
 import './App.css';
 
 const Dashboard = lazy(() => import('./Dashboard'));
+const Welcome = lazy(() => import('./Welcome'));
 const ChonFileExcel = lazy(() => import('./1ChonFileExcel'));
 const XepLop = lazy(() => import('./2XepLop'));
 const KetQua = lazy(() => import('./3KetQua'));
@@ -52,7 +53,8 @@ function App() {
         <Route component={ScrollToTop} />
         <VluLayout>
           <Suspense fallback={<LinearProgress />}>
-            <Route exact path="/" component={Dashboard} />
+            <Route exact path={ROUTES._0TrangChu.path} component={Welcome} />
+            <Route exact path={ROUTES._Dashboard.path} component={Dashboard} />
 
             <PersistedRoute path={ROUTES._1ChonFileExcel.path} component={ChonFileExcel} />
             <PersistedRoute path={ROUTES._2XepLop.path} component={dataTkb.length ? XepLop : NeedStep1Warning} />

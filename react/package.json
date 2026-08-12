@@ -39,6 +39,7 @@
     "react-hotkeys-hook": "^4.4.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^5.0.1",
+    "three": "^0.185.1",
     "typewriter-effect": "^2.21.0",
     "use-debounce": "^7.0.0",
     "xlsx": "^0.17.0",

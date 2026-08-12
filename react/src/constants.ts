@@ -4,6 +4,14 @@ export const COLORS = {
 } as const;
 
 export const ROUTES = {
+  _0TrangChu: {
+    path: '/',
+    name: 'Trang chủ',
+  },
+  _Dashboard: {
+    path: '/dashboard',
+    name: 'Dashboard',
+  },
   _1ChonFileExcel: {
     path: '/1',
     name: '1. Kết nối dữ liệu',
