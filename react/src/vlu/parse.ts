@@ -75,12 +75,12 @@ export function parseSchedules(schedules: string | null | undefined): VluParsedS
 
 function parseSegment(segment: string): VluParsedSchedule | null {
   const thu = parseDay(segment);
-  const isOnline = /tr[ựu]c tuy[\ếe]n|online/i.test(segment);
+  const isOnline = /tr[ựu]c tuy[ếe]n|online/i.test(segment);
   if (!thu) return null;
 
   // Tách ca học: nhãn "ca"/"tiết"/"slot" hoặc dãy số đứng trước phòng
   let caHoc = '';
-  const caLabel = segment.match(/(?:Ca|Ti[\ếe]t|Slot|Số tiết|Giờ)\s*[:\-]?\s*([\d,\-–—\s]+)/i);
+  const caLabel = segment.match(/(?:Ca|Ti[ếe]t|Slot|Số tiết|Giờ)\s*[:-]?\s*([\d,–—\s-]+)/i);
   if (caLabel) {
     caHoc = normalizeCaHoc(caLabel[1]) ?? '';
   }
@@ -94,10 +94,10 @@ function parseSegment(segment: string): VluParsedSchedule | null {
     if (single) caHoc = single[1];
   }
 
-  const tuanMatch = segment.match(/Tu[ầa]n\s*[\d\s,\-–—]+|\b(\d{1,2}\s*[-–—]\s*\d{1,2})\b/);
+  const tuanMatch = segment.match(/Tu[ầa]n\\s*[\\d\\s,–—-]+|\b(\d{1,2}\s*[-–—]\s*\d{1,2})\b/);
   const tuanHoc = tuanMatch ? tuanMatch[0].replace(/Tu[ầa]n/i, '').trim() : '';
 
-  const phongMatch = segment.match(/Ph[òo]ng\s*[:.\-]?\s*([A-Za-z]?\d[\w\-\.]*)/i) || segment.match(/P\.\s*([A-Za-z]?\d[\w\-\.]*)/i);
+  const phongMatch = segment.match(/Ph[òo]ng\s*[:.-]?\s*([A-Za-z]?\d[\w.-]*)/i) || segment.match(/P\.\s*([A-Za-z]?\d[\w.-]*)/i);
   const phong = phongMatch ? phongMatch[1].trim() : '';
 
   const campusMatch = segment.match(/Cơ sở\s*(\d|[A-Za-z])/i) || segment.match(/CS\s*(\d|[A-Za-z])/i);

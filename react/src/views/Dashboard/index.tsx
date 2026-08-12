@@ -132,7 +132,7 @@ export default function Dashboard() {
             <div className="row g-3">
               {quickActions.map((action) => (
                 <div key={action.title} className="col-md-4">
-                  <a className="quick-action h-100 d-flex" onClick={() => history.push(action.path)}>
+                  <button type="button" className="quick-action h-100 d-flex" onClick={() => history.push(action.path)}>
                     <div className="quick-action-icon">
                       <i className={`bi ${action.icon}`} />
                     </div>
@@ -140,7 +140,7 @@ export default function Dashboard() {
                       <h6>{action.title}</h6>
                       <p>{action.desc}</p>
                     </div>
-                  </a>
+                  </button>
                 </div>
               ))}
             </div>

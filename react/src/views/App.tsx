@@ -4,11 +4,12 @@ import { BrowserRouter, Redirect, Route, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { ROUTES } from '../constants';
+import VluLayout from '../vlu/VluLayout';
 import { selectFinalDataTkb, useTkbStore } from '../zus';
 import ErrorBoundary from './components/ErrorBoundary';
 import NeedStep1Warning from './components/NeedStep1';
 import ScrollToTop from './components/ScrollToTop';
-import VluLayout from '../vlu/VluLayout';
+
 import '../vlu/brand.css';
 import './App.css';
 

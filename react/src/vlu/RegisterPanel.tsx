@@ -1,12 +1,11 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { Box, Button, Alert, Typography, CircularProgress, TextField, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { uniqBy } from 'lodash';
 import { enqueueSnackbar } from 'notistack';
-import { vluApi, VluApiError } from './api';
-import { useVluStore } from './store';
 import { selectPhanLoaiHocTrenTruong, useTkbStore } from '../zus';
 import { extractListMaLop, calcTongSoTC, getTongSoTcJudgement } from '../utils';
-import { uniqBy } from 'lodash';
-
+import { vluApi, VluApiError } from './api';
+import { useVluStore } from './store';
 export default function RegisterPanel() {
   const [loading, setLoading] = useState(false);
   const [otpOpen, setOtpOpen] = useState(false);
@@ -102,29 +101,6 @@ export default function RegisterPanel() {
     }
   }, [token, registConfig, studyProgramId, selectedUnitObjects, otpCode]);
 
-  const handleRemove = useCallback(async () => {
-    if (!token || !registConfig?.IdDot) return;
-    setLoading(true);
-    try {
-      const result = await vluApi.remove(
-        token,
-        selectedUnitObjects,
-        registConfig.IdDot,
-        studyProgramId,
-        otpCode,
-        'OTP_CANCEL',
-      );
-      const msg = typeof result === 'string' ? result : 'Hủy thành công!';
-      enqueueSnackbar(msg, { variant: 'success' });
-      setOtpOpen(false);
-      setOtpCode('');
-    } catch (err) {
-      const msg = err instanceof VluApiError ? err.message : 'Lỗi hủy.';
-      enqueueSnackbar(msg, { variant: 'error' });
-    } finally {
-      setLoading(false);
-    }
-  }, [token, registConfig, studyProgramId, selectedUnitObjects, otpCode]);
 
   if (!token) {
     return (

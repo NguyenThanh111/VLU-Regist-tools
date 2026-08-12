@@ -1,15 +1,14 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Alert, Box, Button, TextField, Select, MenuItem, InputLabel, FormControl, Typography, CircularProgress, Tooltip } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
-import { vluApi, VluApiError } from './api';
-import { VluRegistConfig, VluScheduleUnit, VluStudyProgram } from './types';
-import { parseSchedules } from './parse';
-import { IS_LOCAL_PROXY, LOCAL_PROXY_TOKEN, VLU_TC_RANGE } from './config';
-import { useVluStore } from './store';
 import { ClassModelOriginal } from '../types';
 import { useTkbStore } from '../zus';
 import { toDateTimeString } from '../views/1ChonFileExcel/utils';
-
+import { vluApi, VluApiError } from './api';
+import { IS_LOCAL_PROXY, LOCAL_PROXY_TOKEN, VLU_TC_RANGE } from './config';
+import { parseSchedules } from './parse';
+import { useVluStore } from './store';
+import { VluRegistConfig, VluScheduleUnit, VluStudyProgram } from './types';
 type Step = 'token' | 'programs' | 'units' | 'done';
 
 const PROXY_BASE = 'http://localhost:8787';

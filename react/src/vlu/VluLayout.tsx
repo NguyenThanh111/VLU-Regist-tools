@@ -107,14 +107,15 @@ function VluLayout({ children }: VluLayoutProps) {
               </div>
             ) : (
               <div key={item.key} className="vlu-nav-item">
-                <a
+                <button
+                  type="button"
                   className={`vlu-nav-link ${location.pathname === item.path ? 'active' : ''}`}
                   onClick={() => handleNavClick(item)}
                 >
                   {item.icon && <i className={`bi ${item.icon}`} />}
                   <span>{item.label}</span>
                   {item.badge && <span className="nav-badge">{item.badge}</span>}
-                </a>
+                </button>
               </div>
             ),
           )}
