@@ -290,14 +290,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .vlu-sidebar-brand img {
-  width: 46px;
-  height: 46px;
+  width: 100%;
+  height: 48px;
   object-fit: contain;
+  object-position: left center;
   border-radius: 0;
   background: transparent;
   padding: 0;
   flex-shrink: 0;
 }
+
+.vlu-sidebar-brand-text { display: none; }
 
 .vlu-sidebar-brand-text {
   display: flex;

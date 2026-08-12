@@ -1,0 +1,17 @@
+/* The official VLU 2022 logo is a horizontal lockup, not a square icon. */
+.vlu-sidebar-brand {
+  display: block;
+  min-height: 88px;
+}
+
+.vlu-sidebar-brand .vlu-brand-logo {
+  display: block;
+  width: 100%;
+  height: 48px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.vlu-sidebar-brand-text {
+  display: none;
+}

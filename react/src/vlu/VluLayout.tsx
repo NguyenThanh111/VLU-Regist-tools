@@ -5,6 +5,7 @@ import { useThemeMode } from '../themeMode';
 import { useTkbStore } from '../zus';
 import './brand.css';
 import './sidebar-menu.css';
+import './vlu-logo.css';
 
 export type VluNavItem = {
   key: string;
