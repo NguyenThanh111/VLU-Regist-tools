@@ -53,7 +53,7 @@ export default function Dashboard() {
         </div>
         <div className="d-flex gap-2">
           {registConfig && (
-            <div className="d-flex align-items-center gap-2 px-3 py-2 bg-white border rounded-3" style={{ fontSize: '0.875rem' }}>
+            <div className="d-flex align-items-center gap-2 px-3 py-2 vlu-panel border rounded-3" style={{ fontSize: '0.875rem' }}>
               <span className={`status-dot ${registConfig.RegistAble ? 'online' : 'warning'}`} />
               <span className="fw-semibold">
                 {registConfig.RegistAble ? 'Đang mở đăng ký' : 'Chưa mở đăng ký'}
@@ -160,12 +160,12 @@ export default function Dashboard() {
                 bằng tài khoản sinh viên.
               </li>
               <li>
-                Bấm <kbd className="bg-light text-dark border">F12</kbd> → chọn tab{' '}
+                Bấm <kbd className="bg-dark border">F12</kbd> → chọn tab{' '}
                 <span className="fw-semibold">Console</span>.
               </li>
               <li>
                 Dán lệnh:{' '}
-                <code className="d-inline-block bg-light px-2 py-1 rounded" style={{ fontSize: '0.8125rem' }}>
+                <code className="d-inline-block vlu-code px-2 py-1 rounded">
                   JSON.parse(localStorage.getItem('authorizationData')).Token
                 </code>
               </li>
@@ -189,7 +189,7 @@ export default function Dashboard() {
                     Token
                   </span>
                 </div>
-                <span className="badge text-bg-light">{vluToken ? 'Đã nhập' : 'Chưa có'}</span>
+                <span className="badge vlu-badge">{vluToken ? 'Đã nhập' : 'Chưa có'}</span>
               </div>
 
               <div className="d-flex align-items-center justify-content-between">
@@ -199,7 +199,7 @@ export default function Dashboard() {
                     Dữ liệu lớp
                   </span>
                 </div>
-                <span className="badge text-bg-light">{daKetNoi ? `${tongLop} lớp` : 'Trống'}</span>
+                <span className="badge vlu-badge">{daKetNoi ? `${tongLop} lớp` : 'Trống'}</span>
               </div>
 
               <div className="d-flex align-items-center justify-content-between">
@@ -209,7 +209,7 @@ export default function Dashboard() {
                     Lớp đã chọn
                   </span>
                 </div>
-                <span className="badge text-bg-light">{tongLopDaChon}</span>
+                <span className="badge vlu-badge">{tongLopDaChon}</span>
               </div>
 
               {daKetNoi && (

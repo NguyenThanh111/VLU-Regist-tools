@@ -1,19 +1,41 @@
-.ag-theme-alpine {
-  --ag-header-background-color: #f4f9f2;
-  /* --ag-background-color: #fff9; */
-  /* TODO: customize better color theming */
-  /* --ag-alpine-active-color: rgba(244,238,239, 1);
-  --ag-selected-row-background-color: rgba(244,238,239, 0.3);
-  --ag-row-hover-color: rgba(244,238,239, 0.1);
-  --ag-column-hover-color: rgba(244,238,239, 0.1);
-  --ag-input-focus-border-color: rgba(244,238,239, 0.4);
-  --ag-range-selection-background-color: rgba(244,238,239, 0.2);
-  --ag-range-selection-background-color-2: rgba(244,238,239, 0.36);
-  --ag-range-selection-background-color-3: rgba(244,238,239, 0.49);
-  --ag-range-selection-background-color-4: rgba(244,238,239, 0.59); */
+/* Dùng theme alpine-dark class nhưng tự override biến theo data-theme (light mặc định) */
+.ag-theme-alpine-dark {
+  --ag-header-background-color: #f4f2ed;
+  --ag-background-color: #ffffff;
+  --ag-foreground-color: #20242a;
+  --ag-secondary-foreground-color: #5c6470;
+  --ag-border-color: #e4e2da;
+  --ag-row-hover-color: rgba(28, 78, 128, 0.07);
+  --ag-column-hover-color: rgba(28, 78, 128, 0.05);
+  --ag-selected-row-background-color: rgba(126, 42, 51, 0.08);
+  --ag-header-foreground-color: #16354e;
+  --ag-alpine-active-color: #1c4e80;
+  --ag-input-focus-border-color: rgba(28, 78, 128, 0.5);
+  --ag-range-selection-background-color: rgba(28, 78, 128, 0.12);
+  --ag-range-selection-background-color-2: rgba(28, 78, 128, 0.24);
+  --ag-range-selection-background-color-3: rgba(28, 78, 128, 0.36);
+  --ag-range-selection-background-color-4: rgba(28, 78, 128, 0.48);
 }
-.ag-theme-alpine .ag-body {
-  --ag-row-hover-color: #F4EEE5; 
+.ag-theme-alpine-dark .ag-body {
+  --ag-row-hover-color: rgba(28, 78, 128, 0.07);
+}
+
+[data-theme='dark'] .ag-theme-alpine-dark {
+  --ag-header-background-color: #0f1d33;
+  --ag-background-color: #0a1628;
+  --ag-foreground-color: #e2e8f0;
+  --ag-secondary-foreground-color: #8fa3bd;
+  --ag-border-color: rgba(148, 163, 184, 0.16);
+  --ag-row-hover-color: rgba(61, 124, 201, 0.12);
+  --ag-column-hover-color: rgba(61, 124, 201, 0.08);
+  --ag-selected-row-background-color: rgba(198, 74, 87, 0.16);
+  --ag-header-foreground-color: #cbd5e1;
+  --ag-alpine-active-color: #5b93d8;
+  --ag-input-focus-border-color: rgba(198, 74, 87, 0.6);
+  --ag-range-selection-background-color: rgba(61, 124, 201, 0.2);
+  --ag-range-selection-background-color-2: rgba(61, 124, 201, 0.36);
+  --ag-range-selection-background-color-3: rgba(61, 124, 201, 0.49);
+  --ag-range-selection-background-color-4: rgba(61, 124, 201, 0.59);
 }
 
 /* show pin icon when column is pinned https://stackoverflow.com/a/43471358/9787887 */
@@ -36,7 +58,7 @@
   content: var(--ag-icon-font-code-pin, "\f124");
 }
 
-.ag-theme-alpine .ag-cell {
+.ag-theme-alpine-dark .ag-cell {
   /*line-height: 25px; !* Kết hợp với rowHeight để điều chỉnh rowHeight mà text vẫn căn giữa vertically *!*/
 
   padding-left: 10px;
@@ -45,50 +67,52 @@
   letter-spacing: 0.5px;
 }
 
-.ag-theme-alpine .ag-header-cell-resize::after {
+.ag-theme-alpine-dark .ag-header-cell-resize::after {
   content: none;
 }
 
-.ag-theme-alpine .ag-cell-normal,
-.ag-theme-alpine .ag-root-wrapper {
+.ag-theme-alpine-dark .ag-cell-normal,
+.ag-theme-alpine-dark .ag-root-wrapper {
   background-color: inherit;
 
 }
-.ag-theme-alpine .ag-header-cell-filtered,
-.ag-filter-toolpanel-group.ag-has-filter {
-  background-color: #f2d8b0 !important;
+.ag-theme-alpine-dark .ag-header-cell-filtered,
+.ag-theme-alpine-dark .ag-filter-toolpanel-group.ag-has-filter {
+  background-color: var(--vlu-red-light, rgba(126, 42, 51, 0.14)) !important;
 }
 /* only display filter icon when the column is actively filtered */
-.ag-theme-alpine .ag-floating-filter-button {
+.ag-theme-alpine-dark .ag-floating-filter-button {
   /* cannot use display: none because it'll mess up with the interaction */
   opacity: 0;
   width: 0;
   height: 0;
   margin: 0
 }
-.ag-theme-alpine .ag-filter-list-panel .ag-has-filter .ag-group-title::after,
-.ag-theme-alpine .ag-header-cell-filtered .ag-icon-filter {
+.ag-theme-alpine-dark .ag-filter-list-panel .ag-has-filter .ag-group-title::after,
+.ag-theme-alpine-dark .ag-header-cell-filtered .ag-icon-filter {
   font-size: x-large;
 }
-.ag-theme-alpine .ag-group-title-bar {
+.ag-theme-alpine-dark .ag-group-title-bar {
   background-color: inherit;
 }
-.ag-theme-alpine .ag-sticky-top, 
-.ag-theme-alpine .ag-dnd-ghost {
-  background-color: #F4EEE5;
+.ag-theme-alpine-dark .ag-sticky-top,
+.ag-theme-alpine-dark .ag-dnd-ghost {
+  background-color: #f1f0eb;
+}
+[data-theme='dark'] .ag-theme-alpine-dark .ag-sticky-top,
+[data-theme='dark'] .ag-theme-alpine-dark .ag-dnd-ghost {
+  background-color: #12223c;
 }
 
-.ag-theme-alpine .ag-header-cell,
-.ag-theme-alpine .ag-header-group-cell {
+.ag-theme-alpine-dark .ag-header-cell,
+.ag-theme-alpine-dark .ag-header-group-cell {
   padding-left: 12px;
   padding-right: 12px;
 
-  border-right: 1px solid #ddd;
-  border-left: 1px solid #ddd;
-  border-top: 1px solid #ddd;
-  /* background: #f4f9f2; */
+  border-right: 1px solid rgba(22, 53, 78, 0.08);
+  border-left: 1px solid rgba(22, 53, 78, 0.08);
+  border-top: 1px solid rgba(22, 53, 78, 0.08);
 }
-
 
 /* .odd-row {
   background: #d7e8f7 !important;
@@ -98,17 +122,17 @@
 } */
 
 
-.ag-theme-alpine .ag-set-filter-list {
+.ag-theme-alpine-dark .ag-set-filter-list {
   height: auto;
   max-height: calc(100vh - 200px) !important;
   overflow: auto; /* thank you ChatGPT */
 }
 
-.ag-theme-alpine .ag-row-hover {
+.ag-theme-alpine-dark .ag-row-hover {
   cursor: pointer;
 }
 
-.ag-theme-alpine .ag-status-name-value {
+.ag-theme-alpine-dark .ag-status-name-value {
   padding-top: 6px;
   padding-bottom: 6px;
 }

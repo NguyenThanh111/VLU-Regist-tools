@@ -119,13 +119,13 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
                   '&:before': {
                     display: 'none',
                   },
-                  bgcolor: 'white',
+                  bgcolor: 'background.paper',
                   '& .MuiAccordionSummary-root': {
                     minHeight: 'auto',
                     py: 0.5,
                     px: 0,
                     '&:hover': {
-                      bgcolor: 'white',
+                      bgcolor: 'background.paper',
                     },
                   },
                   '& .MuiAccordionDetails-root': {

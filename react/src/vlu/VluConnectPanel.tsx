@@ -253,8 +253,8 @@ export default function VluConnectPanel() {
   }, [units, config, setDataExcel]);
 
   return (
-    <Box sx={{ mb: 2, p: 2, border: '1px dashed #ccc', borderRadius: 2 }}>
-      <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 700, color: '#08376D' }}>
+    <Box sx={{ mb: 2, p: 2, border: '1px dashed rgba(148, 163, 184, 0.25)', borderRadius: 2 }}>
+      <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 700, color: '#d72134' }}>
         Kết nối API VLU {IS_LOCAL_PROXY ? '(local — token chỉ nằm trên máy bạn)' : ''}
       </Typography>
 

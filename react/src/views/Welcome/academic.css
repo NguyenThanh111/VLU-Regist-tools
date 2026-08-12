@@ -1,0 +1,30 @@
+/* Final academic refinements for the public landing page. */
+.wl-nav { background: var(--wl-bg-glass); }
+.wl-nav-links a:hover { color: var(--wl-text); background: var(--wl-panel-2); }
+.wl-theme-btn { background: var(--wl-panel); color: var(--wl-muted); }
+.wl-theme-btn:hover { color: var(--wl-text); }
+
+.wl-hero::after {
+  background: radial-gradient(ellipse 70% 55% at 68% 38%, rgba(28, 78, 128, 0.08), transparent 60%), radial-gradient(ellipse 45% 40% at 24% 70%, rgba(126, 42, 51, 0.06), transparent 60%), linear-gradient(180deg, rgba(250, 250, 248, 0.25) 0%, rgba(250, 250, 248, 0.72) 72%, var(--wl-bg) 100%);
+}
+[data-theme='dark'] .wl-hero::after {
+  background: radial-gradient(ellipse 70% 55% at 68% 38%, rgba(61, 124, 201, 0.14), transparent 60%), radial-gradient(ellipse 45% 40% at 24% 70%, rgba(198, 74, 87, 0.1), transparent 60%), linear-gradient(180deg, rgba(10, 22, 40, 0.35) 0%, rgba(10, 22, 40, 0.55) 62%, var(--wl-bg) 100%);
+}
+.wl-3d-mount { opacity: 0.22; }
+[data-theme='dark'] .wl-3d-mount { opacity: 1; }
+
+.wl-chip { background: var(--wl-panel); }
+.wl-cell-icon.white { background: var(--wl-panel-2); color: var(--wl-blue); }
+.wl-mini-sched div.ok { background: rgba(46, 125, 79, 0.13); border-color: rgba(46, 125, 79, 0.35); }
+.wl-mini-sched div.conflict { background: var(--wl-red-soft); border-color: rgba(126, 42, 51, 0.35); }
+.wl-mini-sched div.conflict::after { color: var(--wl-red); }
+
+.wl-step:nth-child(2), .wl-step:nth-child(2):hover { transform: none; }
+.wl-step, .wl-cell { border-radius: 10px; }
+.wl-step:hover, .wl-cell:hover { transform: translateY(-2px); border-color: rgba(126, 42, 51, 0.35); }
+.wl-section, .wl-final { padding-top: 88px; padding-bottom: 88px; }
+
+@media (max-width: 575.98px) {
+  .wl-theme-btn { width: 36px; height: 36px; }
+  .wl-section, .wl-final { padding-top: 56px; padding-bottom: 56px; }
+}

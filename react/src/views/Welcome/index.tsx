@@ -2,7 +2,9 @@ import React, { lazy, Suspense, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import { useTkbStore } from '../../zus';
+import { useThemeMode } from '../../themeMode';
 import './welcome.css';
+import './academic.css';
 
 const Welcome3D = lazy(() => import('./Welcome3D'));
 
@@ -135,6 +137,7 @@ export default function Welcome() {
   const history = useHistory();
   const dataTkb = useTkbStore((s) => s.dataExcel);
   const selectedClasses = useTkbStore((s) => s.selectedClasses);
+  const { mode, toggle } = useThemeMode();
   const goStep1 = () => history.push(ROUTES._1ChonFileExcel.path);
   const goDashboard = () => history.push('/dashboard');
 
@@ -163,6 +166,15 @@ export default function Welcome() {
           <a href="#tinh-nang">Tính năng</a>
           <a href="#luu-y">Lưu ý</a>
         </div>
+        <button
+          type="button"
+          className="wl-theme-btn"
+          onClick={toggle}
+          title={mode === 'dark' ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối'}
+          aria-label="Đổi giao diện sáng/tối"
+        >
+          <i className={`bi ${mode === 'dark' ? 'bi-sun-fill' : 'bi-moon-stars-fill'}`} />
+        </button>
         <button type="button" className="wl-btn wl-btn-primary" onClick={goStep1}>
           {startLabel}
           <i className="bi bi-arrow-right" />

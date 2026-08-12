@@ -33,7 +33,7 @@ function AgGrid() {
 
   return (
     <div
-      className="ag-theme-alpine"
+      className="ag-theme-alpine-dark"
       style={{
         height: `calc(100vh - ${isDrawerOpen ? 50 : 18}px)`,
         fontFamily: 'inherit',

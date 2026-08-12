@@ -11,6 +11,7 @@ import NeedStep1Warning from './components/NeedStep1';
 import ScrollToTop from './components/ScrollToTop';
 
 import '../vlu/brand.css';
+import '../vlu/academic.css';
 import './App.css';
 
 const Dashboard = lazy(() => import('./Dashboard'));

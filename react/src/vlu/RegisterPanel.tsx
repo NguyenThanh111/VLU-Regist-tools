@@ -111,7 +111,7 @@ export default function RegisterPanel() {
   }
 
   return (
-    <Box sx={{ mt: 1, p: 1, border: '1px solid #eee', borderRadius: 1 }}>
+    <Box sx={{ mt: 1, p: 1, border: '1px solid rgba(148, 163, 184, 0.16)', borderRadius: 1 }}>
       <Typography variant="subtitle2" sx={{ mb: 1 }}>
         Đăng ký học phần qua API VLU
       </Typography>

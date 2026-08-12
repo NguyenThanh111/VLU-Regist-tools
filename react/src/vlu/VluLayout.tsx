@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { ROUTES } from '../constants';
+import { useThemeMode } from '../themeMode';
 import { useTkbStore } from '../zus';
 import './brand.css';
 
@@ -26,6 +27,7 @@ function VluLayout({ children }: VluLayoutProps) {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const dataTkb = useTkbStore((s) => s.dataExcel);
+  const { mode, toggle } = useThemeMode();
 
   const closeMobile = useCallback(() => setMobileOpen(false), []);
 
@@ -84,6 +86,13 @@ function VluLayout({ children }: VluLayoutProps) {
   );
 
   const pageTitle = currentItem?.label || 'Dashboard';
+
+  // The welcome screen has its own fixed navigation and full-viewport hero.
+  // Rendering it inside the dashboard shell causes the sidebar/topbar to
+  // overlap and compress the landing layout.
+  if (location.pathname === ROUTES._0TrangChu.path) {
+    return <>{children}</>;
+  }
 
   return (
     <div className="vlu-app">
@@ -154,6 +163,14 @@ function VluLayout({ children }: VluLayoutProps) {
           </div>
 
           <div className="vlu-topbar-right">
+            <button
+              type="button"
+              className="vlu-topbar-btn"
+              title={mode === 'dark' ? 'Chuyển sang chế độ sáng' : 'Chuyển sang chế độ tối'}
+              onClick={toggle}
+            >
+              <i className={`bi ${mode === 'dark' ? 'bi-sun-fill' : 'bi-moon-stars-fill'}`} />
+            </button>
             <button type="button" className="vlu-topbar-btn" title="Mở cổng đăng ký VLU" onClick={() => window.open('https://regist.vlu.edu.vn/', '_blank')}>
               <i className="bi bi-box-arrow-up-right" />
             </button>

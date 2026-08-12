@@ -3,50 +3,135 @@
   _brand.css — Hệ thống thiết kế theo thương hiệu VLU
    ===================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
 
-/* ---- Custom Properties (CSS Variables) ---- */
+/* ---- Custom Properties (CSS Variables) — default: Light academic ---- */
 :root {
-  /* VLU Brand Colors */
-  --vlu-red: #d72134;
-  --vlu-red-dark: #b31a2b;
-  --vlu-red-light: #f8d7da;
-  --vlu-blue: #08376D;
-  --vlu-blue-dark: #062a54;
-  --vlu-blue-light: #1a4a8a;
-  --vlu-navy: #0a1628;
-  --vlu-navy-light: #121f38;
+  /* VLU Brand Colors (học thuật, điềm tĩnh) */
+  --vlu-red: #7e2a33;              /* burgundy trầm — accent CTA/cảnh báo */
+  --vlu-red-dark: #6b2229;
+  --vlu-red-light: rgba(126, 42, 51, 0.09);
+  --vlu-blue: #1c4e80;             /* navy học thuật — chính cho điều hướng */
+  --vlu-blue-dark: #143c63;
+  --vlu-blue-light: #2b5f94;
+  --vlu-navy: #16354e;
+  --vlu-navy-light: #eef2f7;
 
-  /* Neutrals */
-  --vlu-bg: #F3F6FA;
-  --vlu-bg-card: #FFFFFF;
-  --vlu-bg-sidebar: #0a1628;
-  --vlu-border: #e2e8f0;
-  --vlu-text: #1e293b;
-  --vlu-text-muted: #64748b;
-  --vlu-text-light: #94a3b8;
-  --vlu-text-white: #f1f5f9;
+  /* Trạng thái */
+  --vlu-success: #2e7d4f;
+  --vlu-success-light: rgba(46, 125, 79, 0.1);
+  --vlu-error: #a12b33;
+  --vlu-error-light: rgba(161, 43, 51, 0.09);
+  --vlu-warning: #8a5a00;
+  --vlu-warning-light: rgba(138, 90, 0, 0.1);
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
-  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.05);
-  --shadow-sidebar: 2px 0 12px rgba(0,0,0,0.15);
+  /* Neutrals (light) */
+  --vlu-bg: #fafaf8;
+  --vlu-bg-card: #ffffff;
+  --vlu-bg-deep: #f1f0eb;
+  --vlu-bg-glass: rgba(255, 255, 255, 0.85);
+  --vlu-bg-sidebar: #ffffff;
+  --vlu-border: #e4e2da;
+  --vlu-text: #20242a;
+  --vlu-text-muted: #5c6470;
+  --vlu-text-light: #8a919c;
+  --vlu-text-white: #ffffff;
+
+  /* Sidebar */
+  --vlu-sb-text: #3f4753;
+  --vlu-sb-muted: #7a828e;
+  --vlu-sb-border: rgba(22, 53, 78, 0.1);
+  --vlu-sb-active-bg: rgba(28, 78, 128, 0.09);
+  --vlu-sb-active-accent: #1c4e80;
+  --vlu-sb-brand-sub: #8a919c;
+
+  /* Bootstrap overrides (light) */
+  --bs-body-bg: #fafaf8;
+  --bs-body-color: #20242a;
+  --bs-secondary-color: #5c6470;
+  --bs-border-color: #e4e2da;
+  --bs-card-bg: #ffffff;
+  --bs-card-color: #20242a;
+  --bs-card-border-color: #e4e2da;
+  --bs-link-color: #1c4e80;
+  --bs-link-hover-color: #7e2a33;
+  --bs-light-rgb: 242, 241, 236;
+  --bs-dark-rgb: 22, 53, 78;
+
+  /* Shadows (nhẹ) */
+  --shadow-sm: 0 1px 2px rgba(22, 53, 78, 0.06);
+  --shadow-md: 0 2px 8px -1px rgba(22, 53, 78, 0.1), 0 1px 2px -1px rgba(22, 53, 78, 0.08);
+  --shadow-lg: 0 8px 24px -4px rgba(22, 53, 78, 0.14), 0 4px 8px -6px rgba(22, 53, 78, 0.1);
+  --shadow-sidebar: 1px 0 12px rgba(22, 53, 78, 0.08);
 
   /* Layout */
   --sidebar-width: 260px;
   --sidebar-collapsed: 72px;
   --topbar-height: 64px;
 
-  /* Radius */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
+  /* Radius — vuông nhẹ, học thuật */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
 
   /* Transitions */
   --transition-fast: 0.15s ease;
   --transition-normal: 0.25s ease;
   --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---- Dark mode (tùy chọn) ---- */
+[data-theme='dark'] {
+  --vlu-red: #c64a57;
+  --vlu-red-dark: #d45a66;
+  --vlu-red-light: rgba(198, 74, 87, 0.14);
+  --vlu-blue: #3d7cc9;
+  --vlu-blue-dark: #2f64a8;
+  --vlu-blue-light: #5b93d8;
+  --vlu-navy: #0a1628;
+  --vlu-navy-light: #121f38;
+
+  --vlu-success: #4ade80;
+  --vlu-success-light: rgba(74, 222, 128, 0.12);
+  --vlu-error: #f87171;
+  --vlu-error-light: rgba(248, 113, 113, 0.14);
+  --vlu-warning: #fbbf24;
+  --vlu-warning-light: rgba(251, 191, 36, 0.12);
+
+  --vlu-bg: #0a1628;
+  --vlu-bg-card: #0f1d33;
+  --vlu-bg-deep: #0c1830;
+  --vlu-bg-glass: rgba(15, 29, 51, 0.8);
+  --vlu-bg-sidebar: #070f1c;
+  --vlu-border: rgba(148, 163, 184, 0.16);
+  --vlu-text: #e2e8f0;
+  --vlu-text-muted: #8fa3bd;
+  --vlu-text-light: #64748b;
+  --vlu-text-white: #f1f5f9;
+
+  --vlu-sb-text: #cbd5e1;
+  --vlu-sb-muted: #64748b;
+  --vlu-sb-border: rgba(255, 255, 255, 0.08);
+  --vlu-sb-active-bg: rgba(255, 255, 255, 0.09);
+  --vlu-sb-active-accent: #5b93d8;
+  --vlu-sb-brand-sub: #94a3b8;
+
+  --bs-body-bg: #0a1628;
+  --bs-body-color: #e2e8f0;
+  --bs-secondary-color: #8fa3bd;
+  --bs-border-color: rgba(148, 163, 184, 0.16);
+  --bs-card-bg: #0f1d33;
+  --bs-card-color: #e2e8f0;
+  --bs-card-border-color: rgba(148, 163, 184, 0.16);
+  --bs-link-color: #5b93d8;
+  --bs-link-hover-color: #c64a57;
+  --bs-light-rgb: 15, 29, 51;
+  --bs-dark-rgb: 148, 163, 184;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.35), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --shadow-sidebar: 2px 0 12px rgba(0, 0, 0, 0.4);
 }
 
 /* ---- Global Resets ---- */
@@ -55,7 +140,7 @@
 }
 
 html {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Be Vietnam Pro', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -68,32 +153,35 @@ body {
   color: var(--vlu-text);
   min-height: 100vh;
   overflow-x: hidden;
+  font-size: 0.9375rem;
+  line-height: 1.6;
 }
 
 /* ---- Typography ---- */
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  font-weight: 600;
   color: var(--vlu-text);
-  line-height: 1.25;
-  letter-spacing: -0.02em;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
 }
 
 .display-heading {
-  font-size: 2rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--vlu-navy);
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--vlu-text);
 }
 
 .section-title {
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--vlu-text);
   margin-bottom: 1rem;
 }
 
 .text-brand { color: var(--vlu-red) !important; }
-.text-navy { color: var(--vlu-navy) !important; }
+.text-navy { color: var(--vlu-blue) !important; }
 .text-muted-custom { color: var(--vlu-text-muted) !important; }
 
 /* ---- Bootstrap Overrides ---- */
@@ -165,7 +253,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .card-vlu:hover {
   box-shadow: var(--shadow-lg);
-  border-color: #cbd5e1;
+  border-color: rgba(215, 33, 52, 0.35);
 }
 
 /* ---- Dashboard Layout ---- */
@@ -178,7 +266,7 @@ h1, h2, h3, h4, h5, h6 {
 .vlu-sidebar {
   width: var(--sidebar-width);
   background: var(--vlu-bg-sidebar);
-  color: var(--vlu-text-white);
+  color: var(--vlu-sb-text);
   position: fixed;
   top: 0;
   left: 0;
@@ -196,7 +284,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   gap: 12px;
   padding: 20px 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid var(--vlu-sb-border);
   flex-shrink: 0;
   min-height: 72px;
 }
@@ -219,12 +307,12 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.01em;
-  color: #fff;
+  color: var(--vlu-text);
 }
 
 .vlu-sidebar-brand-text .brand-sub {
   font-size: 0.6875rem;
-  color: var(--vlu-text-light);
+  color: var(--vlu-sb-brand-sub);
   font-weight: 400;
 }
 
@@ -253,24 +341,24 @@ h1, h2, h3, h4, h5, h6 {
   gap: 12px;
   padding: 10px 12px;
   border-radius: 8px;
-  color: #cbd5e1;
+  color: var(--vlu-sb-text);
   text-decoration: none;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 400;
   transition: all var(--transition-fast);
   cursor: pointer;
 }
 
 .vlu-nav-link:hover {
-  background: rgba(255,255,255,0.08);
-  color: #fff;
+  background: var(--vlu-sb-active-bg);
+  color: var(--vlu-text);
 }
 
 .vlu-nav-link.active {
-  background: var(--vlu-red);
-  color: #fff;
+  background: var(--vlu-sb-active-bg);
+  color: var(--vlu-sb-active-accent);
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(215, 33, 52, 0.3);
+  box-shadow: inset 3px 0 0 var(--vlu-sb-active-accent);
 }
 
 .vlu-nav-link i {
@@ -282,8 +370,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .vlu-nav-link .nav-badge {
   margin-left: auto;
-  background: var(--vlu-red);
-  color: #fff;
+  background: var(--vlu-bg-deep);
+  color: var(--vlu-text-muted);
   font-size: 0.6875rem;
   font-weight: 600;
   padding: 2px 8px;
@@ -297,12 +385,12 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #475569;
+  color: var(--vlu-sb-muted);
 }
 
 .vlu-sidebar-footer {
   padding: 16px 20px;
-  border-top: 1px solid rgba(255,255,255,0.08);
+  border-top: 1px solid var(--vlu-sb-border);
   flex-shrink: 0;
 }
 
@@ -319,7 +407,9 @@ h1, h2, h3, h4, h5, h6 {
 /* ---- Topbar ---- */
 .vlu-topbar {
   height: var(--topbar-height);
-  background: var(--vlu-bg-card);
+  background: var(--vlu-bg-glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--vlu-border);
   display: flex;
   align-items: center;
@@ -334,7 +424,7 @@ h1, h2, h3, h4, h5, h6 {
 .vlu-topbar-title {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--vlu-navy);
+  color: var(--vlu-text);
 }
 
 .vlu-topbar-breadcrumb {
@@ -362,7 +452,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 36px;
   border-radius: 8px;
   border: 1px solid var(--vlu-border);
-  background: #fff;
+  background: var(--vlu-bg-card);
   color: var(--vlu-text-muted);
   display: flex;
   align-items: center;
@@ -372,9 +462,9 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1rem;
 }
 .vlu-topbar-btn:hover {
-  background: var(--vlu-bg);
-  color: var(--vlu-navy);
-  border-color: #cbd5e1;
+  background: var(--vlu-navy-light);
+  color: var(--vlu-text);
+  border-color: rgba(215, 33, 52, 0.4);
 }
 
 /* Mobile hamburger */
@@ -384,7 +474,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 36px;
   border-radius: 8px;
   border: 1px solid var(--vlu-border);
-  background: #fff;
+  background: var(--vlu-bg-card);
   color: var(--vlu-text);
   align-items: center;
   justify-content: center;
@@ -400,7 +490,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ---- Dashboard Cards ---- */
 .dash-card {
-  background: #fff;
+  background: var(--vlu-bg-card);
   border: 1px solid var(--vlu-border);
   border-radius: var(--radius-md);
   padding: 20px;
@@ -426,15 +516,15 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.25rem;
   flex-shrink: 0;
 }
-.dash-stat-icon.red { background: #fef2f2; color: var(--vlu-red); }
-.dash-stat-icon.blue { background: #eff6ff; color: var(--vlu-blue); }
-.dash-stat-icon.green { background: #f0fdf4; color: #16a34a; }
-.dash-stat-icon.amber { background: #fffbeb; color: #d97706; }
+.dash-stat-icon.red { background: var(--vlu-red-light); color: var(--vlu-red); }
+.dash-stat-icon.blue { background: rgba(28, 78, 128, 0.08); color: var(--vlu-blue); }
+.dash-stat-icon.green { background: var(--vlu-success-light); color: var(--vlu-success); }
+.dash-stat-icon.amber { background: var(--vlu-warning-light); color: var(--vlu-warning); }
 
 .dash-stat-value {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--vlu-navy);
+  color: var(--vlu-text);
   line-height: 1.2;
 }
 .dash-stat-label {
@@ -451,7 +541,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 16px;
   border-radius: var(--radius-md);
   border: 1px solid var(--vlu-border);
-  background: #fff;
+  background: var(--vlu-bg-card);
   cursor: pointer;
   transition: all var(--transition-fast);
   text-decoration: none;
@@ -495,9 +585,9 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-block;
   margin-right: 6px;
 }
-.status-dot.online { background: #16a34a; }
-.status-dot.offline { background: #94a3b8; }
-.status-dot.warning { background: #d97706; }
+.status-dot.online { background: var(--vlu-success); }
+.status-dot.offline { background: var(--vlu-text-light); }
+.status-dot.warning { background: var(--vlu-warning); }
 
 /* ---- Step Indicator ---- */
 .step-indicator {
@@ -516,7 +606,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   border: 2px solid var(--vlu-border);
   color: var(--vlu-text-muted);
-  background: #fff;
+  background: var(--vlu-bg-card);
   transition: all var(--transition-fast);
 }
 .step-dot.active {
@@ -525,8 +615,8 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
 }
 .step-dot.done {
-  background: #16a34a;
-  border-color: #16a34a;
+  background: var(--vlu-success);
+  border-color: var(--vlu-success);
   color: #fff;
 }
 .step-line {
@@ -535,7 +625,7 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--vlu-border);
   border-radius: 1px;
 }
-.step-line.done { background: #16a34a; }
+.step-line.done { background: var(--vlu-success); }
 
 /* ---- Login Form ---- */
 .vlu-login-container {
@@ -547,9 +637,10 @@ h1, h2, h3, h4, h5, h6 {
   padding: 20px;
 }
 .vlu-login-card {
-  background: #fff;
+  background: var(--vlu-bg-card);
+  border: 1px solid var(--vlu-border);
   border-radius: var(--radius-lg);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   width: 100%;
   max-width: 420px;
   overflow: hidden;
@@ -661,3 +752,29 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 4px;
   background: var(--vlu-border);
 }
+
+/* ---- Dark helpers (khớp giao diện Welcome) ---- */
+.vlu-code {
+  background: var(--vlu-bg-deep);
+  border: 1px solid var(--vlu-border);
+  color: var(--vlu-blue-dark);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+}
+.vlu-badge {
+  background: rgba(148, 163, 184, 0.12);
+  color: var(--vlu-text-muted);
+  border: 1px solid var(--vlu-border);
+  font-weight: 600;
+}
+.vlu-panel {
+  background: var(--vlu-bg-card);
+}
+.vlu-chip-border {
+  border-color: var(--vlu-border);
+}
+
+/* =====================================================
+   Light Mode — đổi biến khi html mang data-theme="light"
+   ===================================================== */

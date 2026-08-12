@@ -46,7 +46,7 @@ function Index() {
           regist.vlu.edu.vn
         </a>{' '}
         → Bấm F12 (Console) → dán{' '}
-        <code style={{ background: '#eee', padding: '2px 6px', borderRadius: 4 }}>
+        <code style={{ background: 'rgba(148, 163, 184, 0.12)', color: '#7fb3e8', padding: '2px 6px', borderRadius: 4 }}>
           JSON.parse(localStorage.getItem('authorizationData')).Token
         </code>{' '}
         → copy chuỗi token và dán vào ô bên trên.

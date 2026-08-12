@@ -1,10 +1,11 @@
 #thoi-khoa-bieu th, #thoi-khoa-bieu td {
     padding: 0.5em 0.3em;
-    border: 1px solid #ddd;
+    border: 1px solid var(--vlu-border, rgba(148, 163, 184, 0.16));
 }
 
 #thoi-khoa-bieu table thead tr th {
-    background-color: #eee;
+    background-color: var(--vlu-bg-card, #0f1d33);
+    color: var(--vlu-text, #e2e8f0);
     text-align: center;
     width: 3%;
 }
@@ -26,8 +27,8 @@
 }
 
 #thoi-khoa-bieu table tr td {
-    background: #ccc !important;
-    border-bottom: 1px solid #ddd;
+    background: var(--vlu-bg-deep, #0c1830) !important;
+    border-bottom: 1px solid var(--vlu-border, rgba(148, 163, 184, 0.12));
 }
 
 #thoi-khoa-bieu table tr td.cell-tiet {
@@ -37,7 +38,7 @@
 }
 
 #thoi-khoa-bieu .cell-class {
-    background-color: #fff !important;
+    background-color: var(--vlu-bg-card, #0f1d33) !important;
     text-align: center;
     width: 230px;
     position: relative;
@@ -64,8 +65,9 @@
     flex-direction: column;
     transition: 0.1s ease-in-out;
     border-radius: 5px;
-    background: #fff;
-    box-shadow: 0 0 2px #0003;
+    background: var(--vlu-bg-deep, #0c1830);
+    border: 1px solid var(--vlu-border, rgba(148, 163, 184, 0.16));
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 #thoi-khoa-bieu .extra-buttons.extra-buttons-shown {
     opacity: 1;
