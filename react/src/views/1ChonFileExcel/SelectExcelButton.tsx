@@ -27,7 +27,8 @@ function SelectExcelButton() {
         const wsLyThuyet = wb.Sheets[wb.SheetNames[0]];
         const wsThucHanh = wb.Sheets[wb.SheetNames[1]];
         const dataLyThuyet = XLSX.utils.sheet_to_json<any[][]>(wsLyThuyet, { header: 1 });
-        const dataThucHanh = XLSX.utils.sheet_to_json<any[][]>(wsThucHanh, { header: 1 });
+        // CSV và một số mẫu Excel chỉ có một sheet; sheet thứ hai là tùy chọn.
+        const dataThucHanh = wsThucHanh ? XLSX.utils.sheet_to_json<any[][]>(wsThucHanh, { header: 1 }) : [];
         const dataInArray = [...dataLyThuyet, ...dataThucHanh].filter(
           (row) => typeof row[0] === 'number', // những row có cột 0 là STT (STT là number) thì mới là data ta cần
         );

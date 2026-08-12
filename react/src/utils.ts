@@ -64,12 +64,35 @@ const isTimeSlotsOverlap = (timeSlotsA: TimeSlots, timeSlotsB: TimeSlots) => {
   return timeSlotsA.some((slotA) => timeSlotsB.includes(slotA));
 };
 
+const getStudyWeeks = (cachTuan: string): Set<number> | null => {
+  const weeks = new Set<number>();
+  const values = cachTuan.match(/\d+(?:\s*[-–—]\s*\d+)?/g) ?? [];
+  for (const value of values) {
+    const [fromText, toText] = value.split(/\s*[-–—]\s*/);
+    const from = Number(fromText);
+    const to = Number(toText ?? fromText);
+    if (!Number.isInteger(from) || !Number.isInteger(to) || from < 1 || to > 53) continue;
+    for (let week = Math.min(from, to); week <= Math.max(from, to); week++) weeks.add(week);
+  }
+  return weeks.size ? weeks : null;
+};
+
+const isStudyWeeksOverlap = (a: string, b: string) => {
+  const weeksA = getStudyWeeks(a);
+  const weeksB = getStudyWeeks(b);
+  // Thiếu dữ liệu tuần: giữ cách xử lý an toàn, coi như có thể trùng.
+  if (!weeksA || !weeksB) return true;
+  return Array.from(weeksA).some((week) => weeksB.has(week));
+};
+
+const isScheduleOverlap = (classA: ClassModel, classB: ClassModel) =>
+  isTimeSlotsOverlap(getTimeSlots(classA), getTimeSlots(classB)) &&
+  isStudyWeeksOverlap(classA.CachTuan, classB.CachTuan);
+
 export const hasOverlapSchedule = (classAs: ClassModel[], classB: ClassModel) => {
-  const classBTimeSlots = getTimeSlots(classB);
   return classAs.some((classA) => {
     if (isSameAgGridRowId(classA, classB)) return false;
-    const classATimeSlots = getTimeSlots(classA);
-    return isTimeSlotsOverlap(classATimeSlots, classBTimeSlots);
+    return isScheduleOverlap(classA, classB);
   });
 };
 
@@ -91,11 +114,7 @@ export const findOverlapedClasses = (
   const redundant: TTrungTkb[] = [];
 
   const findExistingOverlap = (newClass: ClassModel) => {
-    const newClassTimeSlots = getTimeSlots(newClass);
-    return kept.find((existingClass) => {
-      const existingClassTimeSlots = getTimeSlots(existingClass);
-      return isTimeSlotsOverlap(existingClassTimeSlots, newClassTimeSlots);
-    });
+    return kept.find((existingClass) => isScheduleOverlap(existingClass, newClass));
   };
 
   const processedAgGridRowIds = new Set<string>();

@@ -4,14 +4,14 @@ import { enqueueSnackbar } from 'notistack';
 import { vluApi, VluApiError } from './api';
 import { useVluStore } from './store';
 import { selectPhanLoaiHocTrenTruong, useTkbStore } from '../zus';
-import { extractListMaLop, calcTongSoTC } from '../utils';
+import { extractListMaLop, calcTongSoTC, getTongSoTcJudgement } from '../utils';
 import { uniqBy } from 'lodash';
 
 export default function RegisterPanel() {
   const [loading, setLoading] = useState(false);
   const [otpOpen, setOtpOpen] = useState(false);
   const [otpCode, setOtpCode] = useState('');
-  const [pendingUnits, setPendingUnits] = useState<any[]>([]);
+
   const [registerResult, setRegisterResult] = useState<{ success: boolean; message: string } | null>(null);
 
   const token = useVluStore((s) => s.token);
@@ -20,8 +20,7 @@ export default function RegisterPanel() {
   const studyProgramId = useVluStore((s) => s.studyProgramId);
 
   const cacLop = useTkbStore(selectPhanLoaiHocTrenTruong);
-  const selectedClasses = useTkbStore((s) => s.selectedClasses);
-  const tongSoTC = useMemo(() => calcTongSoTC(selectedClasses), [selectedClasses]);
+  const tongSoTC = useMemo(() => calcTongSoTC(cacLop.flat()), [cacLop]);
 
   const selectedUnitObjects = useMemo(() => {
     const selectedMaLops = extractListMaLop(cacLop.flat());
@@ -51,35 +50,49 @@ export default function RegisterPanel() {
       enqueueSnackbar('Đợt đăng ký chưa mở. Vui lòng chờ.', { variant: 'warning' });
       return;
     }
+    const creditJudgement = getTongSoTcJudgement(tongSoTC);
+    if (!creditJudgement.isOk) {
+      enqueueSnackbar(creditJudgement.text, { variant: 'warning' });
+      return;
+    }
 
     setLoading(true);
     try {
       const conflict = await vluApi.checkExitsRegist(token, selectedUnitObjects, studyProgramId);
-      if (conflict?.IsConflict) {
-        enqueueSnackbar(conflict.Message || 'Có xung đột khi đăng ký.', { variant: 'warning' });
-        setLoading(false);
+      if (conflict?.IsConflict || conflict?.IsFull) {
+        enqueueSnackbar(conflict.Message || (conflict.IsFull ? 'Có lớp đã đầy.' : 'Có xung đột khi đăng ký.'), {
+          variant: 'warning',
+        });
         return;
       }
+      setOtpCode('');
+      setOtpOpen(true);
     } catch (err) {
-      if (err instanceof VluApiError) {
-        enqueueSnackbar('Lỗi kiểm tra xung đột: ' + err.message, { variant: 'error' });
-      }
+      const message = err instanceof VluApiError ? err.message : 'Không thể kiểm tra điều kiện đăng ký.';
+      enqueueSnackbar('Không tiếp tục đăng ký: ' + message, { variant: 'error' });
+    } finally {
+      setLoading(false);
     }
+  }, [token, registConfig, studyProgramId, selectedUnitObjects, hasSelection, tongSoTC]);
 
+  const handleConfirmRegister = useCallback(async () => {
+    if (!registConfig?.IdDot || !otpCode.trim()) return;
+    setLoading(true);
     try {
-      const turnId = registConfig.IdDot;
       const result = await vluApi.regist(
         token,
         selectedUnitObjects,
-        turnId,
+        registConfig.IdDot,
         'REGIST',
         studyProgramId,
-        '99999',
+        otpCode.trim(),
         'OTP_CHANGE',
       );
       const msg = typeof result === 'string' ? result : 'Đăng ký thành công!';
       setRegisterResult({ success: true, message: msg });
       enqueueSnackbar(msg, { variant: 'success' });
+      setOtpOpen(false);
+      setOtpCode('');
     } catch (err) {
       const msg = err instanceof VluApiError ? err.message : 'Lỗi đăng ký.';
       setRegisterResult({ success: false, message: msg });
@@ -87,7 +100,7 @@ export default function RegisterPanel() {
     } finally {
       setLoading(false);
     }
-  }, [token, registConfig, studyProgramId, selectedUnitObjects, hasSelection]);
+  }, [token, registConfig, studyProgramId, selectedUnitObjects, otpCode]);
 
   const handleRemove = useCallback(async () => {
     if (!token || !registConfig?.IdDot) return;
@@ -150,7 +163,7 @@ export default function RegisterPanel() {
       )}
 
       <Dialog open={otpOpen} onClose={() => setOtpOpen(false)} maxWidth="xs" fullWidth>
-        <DialogTitle>Nhập mã OTP</DialogTitle>
+        <DialogTitle>Nhập mã OTP xác nhận đăng ký</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -158,12 +171,13 @@ export default function RegisterPanel() {
             label="Mã OTP"
             value={otpCode}
             onChange={(e) => setOtpCode(e.target.value)}
-            placeholder="Nhập mã xác minh"
+            placeholder="Nhập mã xác minh từ email VLU"
+            helperText="Hệ thống chỉ gửi đăng ký sau khi bạn nhập OTP hợp lệ."
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOtpOpen(false)}>Hủy</Button>
-          <Button onClick={handleRemove} disabled={loading || !otpCode}>
+          <Button onClick={handleConfirmRegister} disabled={loading || !otpCode.trim()}>
             {loading ? <CircularProgress size={20} /> : 'Xác nhận'}
           </Button>
         </DialogActions>

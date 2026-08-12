@@ -17,6 +17,9 @@ export const VLU_API = {
  */
 export const IS_LOCAL_PROXY = process.env.REACT_APP_USE_LOCAL_PROXY === 'true';
 
+/** Marker nội bộ: local server giữ Bearer token, frontend không được biết token đó. */
+export const LOCAL_PROXY_TOKEN = '__VLU_LOCAL_PROXY_CONNECTED__';
+
 /**
  * Thời gian 16 ca học của VLU.
  * Lưu ý: Đây là khung giờ mặc định — khi kết nối API, tool sẽ cố lấy khung giờ

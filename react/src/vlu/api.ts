@@ -1,4 +1,4 @@
-import { IS_LOCAL_PROXY, VLU_API } from './config';
+import { IS_LOCAL_PROXY, LOCAL_PROXY_TOKEN, VLU_API } from './config';
 import { VluPeriod, VluRegistConfig, VluScheduleUnit, VluStudyProgram, VluStudyType } from './types';
 
 export class VluApiError extends Error {
@@ -26,7 +26,8 @@ async function vluFetch<T>(token: string, path: string, options: FetchOptions = 
     const headers: Record<string, string> = { 'content-type': 'application/json' };
     if (IS_LOCAL_PROXY) {
       // local proxy tự thêm apiKey + token đã bắt được; client chỉ gửi token nếu có
-      if (token) headers.Authorization = 'Bearer ' + token;
+      // Token thật chỉ nằm ở local proxy. Marker này chỉ biểu thị đã kết nối.
+      if (token && token !== LOCAL_PROXY_TOKEN) headers.Authorization = 'Bearer ' + token;
     } else {
       headers.apiKey = VLU_API.apiKey;
       headers.clientId = VLU_API.clientId;

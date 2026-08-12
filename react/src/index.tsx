@@ -1,8 +1,7 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import { lightBlue } from '@mui/material/colors';
 import { StyledEngineProvider, Theme, ThemeProvider, adaptV4Theme, createTheme } from '@mui/material/styles';
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/react';
+
 import { LicenseManager } from 'ag-grid-enterprise';
 import { getAnalytics } from 'firebase/analytics';
 import { initializeApp } from 'firebase/app';
@@ -74,8 +73,7 @@ ReactDOM.render(
   <SnackbarProvider>
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <Analytics />
-        <SpeedInsights />
+
         <CssBaseline />
         <App />
       </ThemeProvider>

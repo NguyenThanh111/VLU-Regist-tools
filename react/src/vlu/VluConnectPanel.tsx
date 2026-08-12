@@ -4,7 +4,7 @@ import { enqueueSnackbar } from 'notistack';
 import { vluApi, VluApiError } from './api';
 import { VluRegistConfig, VluScheduleUnit, VluStudyProgram } from './types';
 import { parseSchedules } from './parse';
-import { IS_LOCAL_PROXY, VLU_TC_RANGE } from './config';
+import { IS_LOCAL_PROXY, LOCAL_PROXY_TOKEN, VLU_TC_RANGE } from './config';
 import { useVluStore } from './store';
 import { ClassModelOriginal } from '../types';
 import { useTkbStore } from '../zus';
@@ -36,16 +36,16 @@ export default function VluConnectPanel() {
   const [tokenValid, setTokenValid] = useState(!!vluStore.token);
   const [proxyHasToken, setProxyHasToken] = useState<boolean | null>(null);
 
-  const refreshProxyToken = useCallback(async (): Promise<string> => {
+  const refreshProxyToken = useCallback(async (): Promise<boolean> => {
     try {
       const res = await fetch(PROXY_BASE + '/token');
       const json = await res.json();
-      const t = json?.token || '';
-      setProxyHasToken(!!t);
-      return t;
+      const hasToken = !!json?.hasToken;
+      setProxyHasToken(hasToken);
+      return hasToken;
     } catch {
       setProxyHasToken(false);
-      return '';
+      return false;
     }
   }, []);
 
@@ -53,11 +53,11 @@ export default function VluConnectPanel() {
   useEffect(() => {
     if (!IS_LOCAL_PROXY) return;
     (async () => {
-      const t = await refreshProxyToken();
-      if (t) {
-        setToken(t);
+      const hasToken = await refreshProxyToken();
+      if (hasToken) {
+        setToken(LOCAL_PROXY_TOKEN);
         setTokenValid(true);
-        vluStore.setToken(t);
+        vluStore.setToken(LOCAL_PROXY_TOKEN);
       }
     })();
   }, [refreshProxyToken, vluStore]);
@@ -101,16 +101,16 @@ export default function VluConnectPanel() {
 
   // proxy mode: refresh token từ local server rồi mới kết nối
   const handleConnectProxy = useCallback(async () => {
-    const t = await refreshProxyToken();
-    if (!t) {
+    const hasToken = await refreshProxyToken();
+    if (!hasToken) {
       enqueueSnackbar('Chưa bắt được token. Đăng nhập regist.vlu.edu.vn rồi bấm bookmarklet.', {
         variant: 'warning',
       });
       return;
     }
-    setToken(t);
-    vluStore.setToken(t);
-    handleConnect(t);
+    setToken(LOCAL_PROXY_TOKEN);
+    vluStore.setToken(LOCAL_PROXY_TOKEN);
+    handleConnect(LOCAL_PROXY_TOKEN);
   }, [refreshProxyToken, handleConnect, vluStore]);
 
   const copyBookmarklet = useCallback(() => {

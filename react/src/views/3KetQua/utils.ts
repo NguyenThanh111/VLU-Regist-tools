@@ -13,7 +13,7 @@ else {
   var token = auth.Token;
   var headers = {
     'content-type': 'application/json',
-    'apiKey': '${VLU_API.apiKey}',
+
     'clientId': '${VLU_API.clientId}',
     'Authorization': 'Bearer ' + token
   };

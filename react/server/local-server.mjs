@@ -11,7 +11,7 @@
  * Endpoints:
  *  GET  /health          -> { ok: true }
  *  POST /capture         -> { token } (từ bookmarklet)
- *  GET  /token           -> { hasToken, token }
+ *  GET  /token           -> { hasToken } (không bao giờ trả token)
  *  POST /clear           -> xoá token
  *  GET|POST /api/*       -> proxy tới regist-api.vlu.edu.vn
  */
@@ -41,43 +41,28 @@ const HOST = '127.0.0.1';
 const VLU_API_KEY = process.env.VLU_API_KEY || '';
 const VLU_CLIENT_ID = process.env.VLU_CLIENT_ID || 'dtl';
 const VLU_API_BASE = (process.env.VLU_API_BASE || 'https://regist-api.vlu.edu.vn/api/').replace(/\/+$/, '/');
-const TOKEN_FILE = path.join(__dirname, '.local', 'token.json');
-
-const ALLOWED_ORIGINS = new Set([
+const LOCAL_APP_ORIGINS = new Set([
   'http://localhost:3000',
   'http://127.0.0.1:3000',
-  'https://regist.vlu.edu.vn',
 ]);
 
 let capturedToken = '';
-try {
-  if (fs.existsSync(TOKEN_FILE)) {
-    capturedToken = JSON.parse(fs.readFileSync(TOKEN_FILE, 'utf8')).token || '';
-  }
-} catch {
-  capturedToken = '';
-}
 
 function saveToken(token) {
   capturedToken = token;
-  try {
-    fs.mkdirSync(path.dirname(TOKEN_FILE), { recursive: true });
-    fs.writeFileSync(TOKEN_FILE, JSON.stringify({ token, savedAt: new Date().toISOString() }));
-  } catch (err) {
-    console.warn('[vlu-local] Không lưu được token xuống file:', err.message);
-  }
 }
 
 function clearToken() {
   capturedToken = '';
-  try {
-    fs.rmSync(TOKEN_FILE, { force: true });
-  } catch {}
 }
 
 function setCors(res, req) {
   const origin = req.headers.origin;
-  if (origin && ALLOWED_ORIGINS.has(origin)) {
+  const urlPath = new URL(req.url, `http://${HOST}:${PORT}`).pathname;
+  // Chỉ bookmarklet ở VLU được gọi /capture; những endpoint khác chỉ dành cho app local.
+  const isAllowed =
+    LOCAL_APP_ORIGINS.has(origin) || (urlPath === '/capture' && origin === 'https://regist.vlu.edu.vn');
+  if (origin && isAllowed) {
     res.setHeader('Access-Control-Allow-Origin', origin);
     res.setHeader('Vary', 'Origin');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, DELETE');
@@ -185,7 +170,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (req.method === 'GET' && urlPath === '/token') {
-    sendJson(res, 200, { hasToken: !!capturedToken, token: capturedToken || null });
+    sendJson(res, 200, { hasToken: !!capturedToken });
     return;
   }
 
