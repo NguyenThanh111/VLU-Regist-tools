@@ -103,7 +103,7 @@ function VluLayout({ children }: VluLayoutProps) {
       {/* Sidebar */}
       <aside className={`vlu-sidebar ${mobileOpen ? 'show' : ''}`}>
         <div className="vlu-sidebar-brand">
-          <img src={`${process.env.PUBLIC_URL}/logo-vlu.png`} alt="Văn Lang" />
+          <img className="vlu-brand-logo" src={`${process.env.PUBLIC_URL}/logo-vlu.png`} alt="Logo Đại học Văn Lang" />
           <div className="vlu-sidebar-brand-text">
             <span className="brand-name">{BRAND_NAME}</span>
             <span className="brand-sub">{BRAND_SUB}</span>
